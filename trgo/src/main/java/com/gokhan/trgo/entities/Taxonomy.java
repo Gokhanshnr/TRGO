@@ -23,6 +23,10 @@ public class Taxonomy {
     @Length(message = "Description  must contain min 2 max  200 character.", min = 2, max = 200)
     private String description;
 
-    @ManyToMany(mappedBy = "taxonomy")
-    private List<Product> product;
+
+    @ManyToOne()
+    @JoinColumn(name = "pid")
+    Product product;
+
+
 }

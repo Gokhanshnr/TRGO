@@ -28,5 +28,10 @@ public class ProductRestController {
         return productService.list();
     }
 
+    @GetMapping("/get")
+    public ResponseEntity get(Integer id) {
+        return productService.get(id);
+    }
+
 
 }

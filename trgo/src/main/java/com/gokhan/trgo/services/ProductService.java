@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -36,6 +37,15 @@ public class ProductService {
         List<Product> productsList = productRepository.findAll();
         hm.put(REnum.status, true);
         hm.put(REnum.result, productsList);
+        return new ResponseEntity<>(hm, HttpStatus.OK);
+    }
+
+
+    public ResponseEntity get(Integer id){
+        Map<REnum, Object> hm = new LinkedHashMap<>();
+        Optional<Product> product = productRepository.findByPidEquals(id);
+        hm.put(REnum.status, true);
+        hm.put(REnum.result, product);
         return new ResponseEntity<>(hm, HttpStatus.OK);
     }
 
