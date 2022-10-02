@@ -20,12 +20,6 @@ public class Product {
     @Length(message = "Otel name must contain min 2 max 50", min = 2, max=50)
     private String otel_name;
 
-    @OneToMany
-    @JoinTable(name="rooms",joinColumns = @JoinColumn(name="p_id" ),
-            inverseJoinColumns = @JoinColumn( name = "t_id", referencedColumnName = "tax_id")
-    )
-    private List<Rooms> rooms;
-
     @NotBlank(message = "Description name can not be blank")
     @Length(message = "Description must contain min 2 max", min = 2)
     private String description;
