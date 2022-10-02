@@ -1,6 +1,12 @@
 package com.gokhan.trgo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -10,8 +16,10 @@ import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
-@Data
-public class Product {
+@Getter
+@Setter
+@EqualsAndHashCode
+public class Product extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pid;
@@ -19,6 +27,9 @@ public class Product {
     @NotBlank(message = "Otel name can not be blank")
     @Length(message = "Otel name must contain min 2 max 50", min = 2, max=50)
     private String otel_name;
+
+    @OneToMany(mappedBy = "product")
+    private List<Rooms> rooms;
 
     @NotBlank(message = "Description name can not be blank")
     @Length(message = "Description must contain min 2 max", min = 2)
@@ -29,11 +40,17 @@ public class Product {
     private Location location;
 
 
+    @ManyToMany
+    private List<Pictures> pictures;
 
-    @OneToMany(cascade ={CascadeType.MERGE})
-    @JoinTable(name="products_taxonomy",joinColumns = @JoinColumn(name="p_id" ),
-            inverseJoinColumns = @JoinColumn( name = "t_id", referencedColumnName = "tax_id")
-    )
+
+    @ManyToMany
+    @JoinTable(
+            name = "pr_tx",
+            joinColumns = @JoinColumn(
+                    name = "p_id", referencedColumnName = "pid"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "t_id", referencedColumnName = "tax_id"))
     private List<Taxonomy> taxonomies;
 
 

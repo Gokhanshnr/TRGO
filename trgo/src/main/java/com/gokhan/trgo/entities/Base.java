@@ -16,11 +16,6 @@ import javax.persistence.MappedSuperclass;
 @Data
 public class Base {
 
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedBy
-    private String lastModifiedBy;
 
     @CreatedDate
     private long createdDate;

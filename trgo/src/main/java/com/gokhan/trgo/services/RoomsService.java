@@ -27,6 +27,7 @@ public class RoomsService {
             String capitalizedName = Util.capitalizedWords(room.getName());
             room.setName(capitalizedName);
             Rooms sRoom = roomsRepository.save(room);
+            roomsRepository.setProductId(sRoom.getRoom_id(), room.getProduct_id());
             hm.put(REnum.status, true);
             hm.put(REnum.result, sRoom);
             return new ResponseEntity( hm , HttpStatus.OK);

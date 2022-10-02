@@ -11,5 +11,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findAll();
 
+    boolean existsByPidEquals(Integer pid);
+
 
 }

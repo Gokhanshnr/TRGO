@@ -2,6 +2,7 @@ package com.gokhan.trgo.entities;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class User {
+@EqualsAndHashCode
+public class User extends Base{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,6 +1,10 @@
 package com.gokhan.trgo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -8,7 +12,9 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Taxonomy {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,9 +30,8 @@ public class Taxonomy {
     private String description;
 
 
-    @ManyToOne()
-    @JoinColumn(name = "pid")
-    Product product;
-
+    @ManyToMany(mappedBy = "taxonomies")
+    @JsonIgnore
+    List<Product> product;
 
 }

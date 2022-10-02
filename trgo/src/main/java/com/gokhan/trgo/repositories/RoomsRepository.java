@@ -2,11 +2,13 @@ package com.gokhan.trgo.repositories;
 
 import com.gokhan.trgo.entities.Rooms;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface RoomsRepository extends JpaRepository<Rooms, Integer> {
-    List<Rooms> findByProduct_PidEquals(Integer pid);
-
-
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE rooms SET p_id = ?2 WHERE room_id = ?1 ", nativeQuery = true)
+    void setProductId( int room_id, int p_id );
 }
